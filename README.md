@@ -1,1 +1,1 @@
-"# Protein-Dynamics" 
+Protein Dynamics
