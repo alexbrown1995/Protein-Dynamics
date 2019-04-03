@@ -31,8 +31,8 @@ import matplotlib.pyplot as plt
 import math
 from scipy.linalg import norm
 
-from Bio.PDB.vectors import calc_angle, calc_dihedral, Vector
-from alex import ellipse_cone, protein_synthesis
+from Bio.PDB.vectors import calc_angle, calc_dihedral, Vector, rotaxis
+
 
 
 # load the matrix of coordinates of all endpoints and centroids
