@@ -301,7 +301,7 @@ def randprotein(num_modules=5):
     e.g.
     randprotein(8) ->
     'NcapD14 D14_j5_D79 D79 D79_j1_D54 D54_j1_D79 D79_j2_D14 D14_j3_D54 CcapD54'
-    """"
+    """
     j1 = randjoint(include_caps=False)
     if num_modules < 5:
         print('Minimum of 5 modules')
