@@ -34,7 +34,6 @@ from scipy.linalg import norm
 from Bio.PDB.vectors import calc_angle, calc_dihedral, Vector, rotaxis
 
 
-
 # load the matrix of coordinates of all endpoints and centroids
 coords = np.loadtxt('representationdata.txt')
 
@@ -103,11 +102,6 @@ def param_split(rep='CE', protein_length=5):
 ## Functions for interchanging between parameter positions and names
 
 
-### e.g.
-### parameter_name(0)
-### 'Length 1'
-### parameter_name(3, rep='C')
-### 'Length 4'
 
 def parameter_name(position, rep='CE', protein_length=5):
     """

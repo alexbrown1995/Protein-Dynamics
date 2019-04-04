@@ -3,7 +3,7 @@
 This repository contains Python modules and functions for interacting with
 protein prediction data from BrisSynBio.
 
-## Modules:
+## Modules
 
 **protein.py**
 
@@ -22,6 +22,6 @@ to get started.
 
 Functions for exploring the distributions of parameters of the representations. See
 
-* Comparing Distributions.ipynb*
+* Comparing Distributions.ipynb
 
 to get started.
