@@ -10,7 +10,7 @@ Each row contains the 3D points of the centroids and endpoints of each
 module in the data (11 points per protein).
 """
 
-from centroid import get_CA_coords, get_centroids_and_endpoints_from_modules
+from protein import get_CA_coords, get_centroids_and_endpoints_from_modules
 import time
 
 start = time.time()
