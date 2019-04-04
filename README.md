@@ -1,7 +1,7 @@
 # Protein Dynamics
 
 This repository contains Python modules and functions for interacting with
-protein prediction data from BrisSynBio.
+protein prediction data from [BrisSynBio](http://www.bristol.ac.uk/brissynbio/).
 
 ## Modules
 
