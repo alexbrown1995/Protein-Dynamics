@@ -282,6 +282,15 @@ def randnextjoint(joint1):
     randnextjoint('D14_j1_D14 D14_j2_D14 D14_j1_D76') ->
     'D14_j2_D14 D14_j1_D76 D76'
     """
+    return random.choice(nextjoints(joint1))
+
+def nextjoints(joint1):
+    """
+    Return the list of joints that overlap with joint1 i.e. the last two modules
+    of joint1 overlap with every joint in the returned list.
+
+    e.g. nextjoints('D14_j1_D14 D14_j2_D14 D14_j1_D76') - > ['D14_j2_D14 D14_j1_D76 D76']
+    """
     possibles = []
     overlap1 = ' '.join(joint1.split()[-2:])
     for joint2 in INTERIOR_JOINTS:
@@ -292,7 +301,7 @@ def randnextjoint(joint1):
         print('no connecting joints found')
         return None
     else:
-        return random.choice(possibles)
+        return possibles
 
 def randprotein(num_modules=5):
     """
