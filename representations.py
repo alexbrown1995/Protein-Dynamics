@@ -595,7 +595,7 @@ def newproteinranges(protein, display=False):
 
     return means, fifths, ninetyfifths
 
-def newprotein(protein):
+def newprotein(protein, cones=True):
     """
     Predict and display information about a new protein structure, using the 'CE'
     representation.
@@ -615,7 +615,7 @@ def newprotein(protein):
     v,va5,va95,vd5,vd95 = protein_synthesis(l,a,d,a5,a95,d5,d95)
 
     # plot the new protein
-    plotnewprotein(v,va5,va95,vd5,vd95, modules)
+    plotnewprotein(v,va5,va95,vd5,vd95, modules, cones=cones)
 
 
 def sortparameters(m, f, n, protein_length=5):
@@ -634,7 +634,8 @@ def sortparameters(m, f, n, protein_length=5):
     return l, a, d, a5, a95, d5, d95
 
 
-def plotnewprotein(V,VA5,VA95,VD5,VD95,modules,title='',xlabel='',ylabel=''):
+def plotnewprotein(V,VA5,VA95,VD5,VD95,modules,
+                   title='',xlabel='',ylabel='',cones=True):
     """
     Plot a new protein structure given position vectors of points, and position
     vectors of the 5th and 95th percentiles for plotting a cone of movement
@@ -648,14 +649,15 @@ def plotnewprotein(V,VA5,VA95,VD5,VD95,modules,title='',xlabel='',ylabel=''):
     ax.legend()
     plt.title(title)
     plt.xlabel(xlabel)
-    plt.ylabel(ylabel)
-    for i in range(len(V)-1):
-        ellipse_cone(ax,
-                     V[i].get_array(),
-                     V[i+1].get_array(),
-                     (VA95[i+1]-VA5[i+1]).norm() / 2,
-                     (VD95[i+1]-VD5[i+1]).norm() / 2,
-                     'b')
+    plt.ylabel('angstrom')
+    if cones:
+        for i in range(len(V)-1):
+            ellipse_cone(ax,
+                         V[i].get_array(),
+                         V[i+1].get_array(),
+                         (VA95[i+1]-VA5[i+1]).norm() / 2,
+                         (VD95[i+1]-VD5[i+1]).norm() / 2,
+                         'b')
     plt.show()
 
 def protein_synthesis(l,t,d,t5,t95,d5,d95):
@@ -729,19 +731,19 @@ def protein_synthesis(l,t,d,t5,t95,d5,d95):
 
         #New angle rotation matrices
         if (t[i-1] >= 0):
-            RT = rotaxis(math.pi - t[i-1], (V[i] - V[i-1]) ** V[i-1])
+            RT = rotaxis(math.pi - t[i-1], (V[i] - V[i-1]) ** (V[i-1]-V[i-2]))
         elif (t[i-1] < 0):
-            RT = rotaxis(-(math.pi - t[i-1]), (V[i] - V[i-1]) ** V[i-1])
+            RT = rotaxis(-(math.pi - t[i-1]), (V[i] - V[i-1]) ** (V[i-1]-V[i-2]))
 
         if (t5[i-1] >= 0):
-            RT5 = rotaxis(math.pi - t5[i-1], (V[i] - V[i-1]) ** V[i-1])
+            RT5 = rotaxis(math.pi - t5[i-1], (V[i] - V[i-1]) ** (V[i-1]-V[i-2]))
         elif (t5[i-1] < 0):
-            RT5 = rotaxis(-(math.pi - t5[i-1]), (V[i] - V[i-1]) ** V[i-1])
+            RT5 = rotaxis(-(math.pi - t5[i-1]), (V[i] - V[i-1]) ** (V[i-1]-V[i-2]))
 
         if (t95[i-1] >= 0):
-            RT95 = rotaxis(math.pi - t95[i-1], (V[i] - V[i-1]) ** V[i-1])
+            RT95 = rotaxis(math.pi - t95[i-1], (V[i] - V[i-1]) ** (V[i-1]-V[i-2]))
         elif (t95[i-1] < 0):
-            RT95 = rotaxis(-(math.pi - t95[i-1]), (V[i] - V[i-1]) ** V[i-1])
+            RT95 = rotaxis(-(math.pi - t95[i-1]), (V[i] - V[i-1]) ** (V[i-1]-V[i-2]))
 
         #New dihedral rotation matrices
         if (d[i-2] >= 0):
@@ -803,4 +805,4 @@ def ellipse_cone(ax, p0, p1, R0, R1, color):
     # generate coordinates for surface
     X, Y, Z = [p0[i] + v[i] * t + RA *
                np.sin(theta) * n1[i] + RD * np.cos(theta) * n2[i] for i in [0, 1, 2]]
-    ax.plot_surface(X, Y, Z, color=color,alpha=0.05, linewidth=0, antialiased=False)
+    ax.plot_surface(X, Y, Z, color='dodgerblue',alpha=0.1, linewidth=0, antialiased=False)
